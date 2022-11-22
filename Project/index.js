@@ -1,12 +1,16 @@
+// import getChildById from './demo_db_connection.js'
+
 // steps followed: -
 // npm init -y (package.json created)
 // npm i express (express installed / package-lock.json created)
 // in package.json added [start: index.js]
-// create index.js
+// create index.jsb
 // write npm start in new terminal
 
 const express =  require('express');
 var bodyParser = require('body-parser');
+
+const dbConnection = require('./demo_db_connection')
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -48,6 +52,16 @@ app.put("/dogs/:id", (req, res) => {
 app.delete("/dogs/:id", (req, res) => {
     console.log(req.params.id);
     res.json({ message: "deleting dog " + req.params.id });
+})
+
+
+
+app.get("/children/:childId", (req, res) => {
+        
+        dbConnection.query("select * from mytable", function(error, result, fields) {
+        console.log(childInfo); // undefined
+        res.send(childInfo);
+    })
 })
 
 app.listen(port, () => {
